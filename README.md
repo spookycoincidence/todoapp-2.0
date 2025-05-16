@@ -1,6 +1,6 @@
 # 📝 ToDo App 2.0
 
-Una aplicación simple, moderna y elegante para gestionar tus tareas diarias. Construida con **Next.js**, **React** y **Tailwind CSS**, esta app te permite agregar, completar, eliminar y limpiar tareas completadas. Además, cuenta con una interfaz clara, filtros por estado y modo claro/oscuro.
+Una aplicación simple para gestionar tus tareas diarias. Construida con **Next.js**, **React** y **Tailwind CSS**, esta app te permite agregar, completar, eliminar y limpiar tareas completadas. Además, cuenta con una interfaz clara, filtros por estado y modo claro/oscuro.
 
 👉 **Deploy en Vercel**: [https://todoapp-2-0.vercel.app](https://todoapp-2-0.vercel.app)
 
