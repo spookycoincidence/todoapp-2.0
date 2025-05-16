@@ -4,9 +4,6 @@ Una aplicación simple, moderna y elegante para gestionar tus tareas diarias. Co
 
 👉 **Deploy en Vercel**: [https://todoapp-2-0.vercel.app](https://todoapp-2-0.vercel.app)
 
-![Vista de tarea completada](./path/to/Captura%20de%20pantalla%202025-05-16%20a%20las%206.17.08%20p.%C2%A0m..png)
-![Vista sin tareas activas](./path/to/Captura%20de%20pantalla%202025-05-16%20a%20las%206.17.29%20p.%C2%A0m..png)
-
 ---
 
 ## ✨ Características
