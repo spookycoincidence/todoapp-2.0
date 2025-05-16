@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📝 ToDo App 2.0
 
-## Getting Started
+Una aplicación simple, moderna y elegante para gestionar tus tareas diarias. Construida con **Next.js**, **React** y **Tailwind CSS**, esta app te permite agregar, completar, eliminar y limpiar tareas completadas. Además, cuenta con una interfaz clara, filtros por estado y modo claro/oscuro.
 
-First, run the development server:
+👉 **Deploy en Vercel**: [https://todoapp-2-0.vercel.app](https://todoapp-2-0.vercel.app)
+
+![Vista de tarea completada](./path/to/Captura%20de%20pantalla%202025-05-16%20a%20las%206.17.08%20p.%C2%A0m..png)
+![Vista sin tareas activas](./path/to/Captura%20de%20pantalla%202025-05-16%20a%20las%206.17.29%20p.%C2%A0m..png)
+
+---
+
+## ✨ Características
+
+- ✅ Agregar nuevas tareas
+- 🗑️ Eliminar tareas individuales
+- ✔️ Marcar tareas como completadas
+- 🧹 Limpiar todas las tareas completadas
+- 🔍 Filtrar por:
+  - Todas
+  - Activas
+  - Completadas
+- 🌗 Modo claro / oscuro
+- ⚡️ UI responsiva y optimizada
+
+---
+
+## 🚀 Tecnologías utilizadas
+
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+
+---
+
+## 📦 Instalación y uso local
+
+1. Cloná el repositorio:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/spookycoincidence/todoapp-2.0.git
+cd todoapp-2.0
+```
+2. Instalá las dependencias:
+   ```bash
+    npm install
+   ```
+3. Iniciá el servidor de desarrollo:
+      ```bash
+   npm run dev
+   ```
+4. Abrí tu navegador en http://localhost:3000
+
+## 🛠 Scripts disponibles
+```bash
+dev: inicia el servidor en modo desarrollo.
+
+build: construye la aplicación para producción.
+
+start: inicia la aplicación ya construida.
+
+lint: ejecuta ESLint sobre el código fuente.
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Desarrollado con ❤️ por spookycoincidence
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   
 
-## Learn More
+   
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
