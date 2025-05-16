@@ -1,4 +1,5 @@
-"use client";
+
+'use client';
 import { useState, useEffect } from 'react';
 
 // Definición del tipo Todo
@@ -8,51 +9,33 @@ type Todo = {
   completed: boolean;
 };
 
-export default function App() {
+export default function TodoApp() {
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [task, setTask] = useState('');
+  const [newTodo, setNewTodo] = useState('');
   const [darkMode, setDarkMode] = useState(false);
-  const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
 
-  // Cargar tareas del localStorage al inicio
-  useEffect(() => {
-    const savedTodos = localStorage.getItem('todos');
-    if (savedTodos) {
-      try {
-        setTodos(JSON.parse(savedTodos));
-      } catch (e) {
-        console.error('Error al cargar tareas:', e);
-      }
-    }
-    
-    // Detectar preferencia de tema del sistema
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setDarkMode(prefersDark);
-  }, []);
-
-  // Guardar tareas en localStorage cuando cambian
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
-
-  // Aplicar modo oscuro
+  // Efecto para manejar el modo oscuro
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode);
   }, [darkMode]);
 
-  const handleAddTask = () => {
-    if (task.trim()) {
-      const newTodo: Todo = {
-        id: Date.now(),
-        text: task,
-        completed: false
-      };
-      setTodos([...todos, newTodo]);
-      setTask('');
+  // Agregar una nueva tarea
+  const addTodo = () => {
+    if (newTodo.trim()) {
+      setTodos([
+        ...todos,
+        {
+          id: Date.now(),
+          text: newTodo,
+          completed: false
+        }
+      ]);
+      setNewTodo('');
     }
   };
 
-  const handleToggleTodo = (id: number) => {
+  // Alternar el estado de una tarea
+  const toggleTodo = (id: number) => {
     setTodos(
       todos.map(todo =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -60,23 +43,13 @@ export default function App() {
     );
   };
 
-  const handleDeleteTask = (id: number) => {
+  // Eliminar una tarea
+  const deleteTodo = (id: number) => {
     setTodos(todos.filter(todo => todo.id !== id));
   };
 
-  const clearCompleted = () => {
-    setTodos(todos.filter(todo => !todo.completed));
-  };
-
-  // Filtrar tareas según el filtro seleccionado
-  const filteredTodos = todos.filter(todo => {
-    if (filter === 'active') return !todo.completed;
-    if (filter === 'completed') return todo.completed;
-    return true;
-  });
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-black text-gray-800 dark:text-gray-100 flex flex-col items-center justify-center p-4 sm:p-6 transition-colors duration-300">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-black text-gray-800 dark:text-gray-100 flex flex-col items-center justify-center p-6 transition-colors duration-300">
       <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700">
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
@@ -86,8 +59,7 @@ export default function App() {
             <button
               onClick={() => setDarkMode(!darkMode)}
               className="p-2 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-              aria-label={darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-              title={darkMode ? 'Modo claro' : 'Modo oscuro'}
+              aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
             >
               {darkMode ? '☀️' : '🌙'}
             </button>
@@ -98,82 +70,38 @@ export default function App() {
               type="text"
               placeholder="Escribí una tarea..."
               className="flex-1 p-3 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400 outline-none transition-all"
-              value={task}
-              onChange={(e) => setTask(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleAddTask()}
+              value={newTodo}
+              onChange={(e) => setNewTodo(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && addTodo()}
             />
             <button
-              onClick={handleAddTask}
+              onClick={addTodo}
               className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center justify-center"
             >
               Agregar
             </button>
           </div>
 
-          {/* Filtros */}
-          {todos.length > 0 && (
-            <div className="flex justify-center mb-4 gap-2 text-sm">
-              <button
-                onClick={() => setFilter('all')}
-                className={`px-3 py-1 rounded-md transition-colors ${
-                  filter === 'all'
-                    ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300'
-                    : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-                }`}
-              >
-                Todas
-              </button>
-              <button
-                onClick={() => setFilter('active')}
-                className={`px-3 py-1 rounded-md transition-colors ${
-                  filter === 'active'
-                    ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300'
-                    : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-                }`}
-              >
-                Activas
-              </button>
-              <button
-                onClick={() => setFilter('completed')}
-                className={`px-3 py-1 rounded-md transition-colors ${
-                  filter === 'completed'
-                    ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300'
-                    : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-                }`}
-              >
-                Completadas
-              </button>
-            </div>
-          )}
-
           {todos.length === 0 ? (
-            <div className="text-center py-10 text-gray-500 dark:text-gray-400 fadeIn">
-              <div className="text-5xl mb-4">📋</div>
-              <p className="text-lg font-medium mb-1">No hay tareas pendientes</p>
+            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+              <p className="text-3xl mb-2">📋</p>
+              <p>No hay tareas pendientes</p>
               <p className="text-sm">Agrega una nueva tarea para comenzar</p>
-            </div>
-          ) : filteredTodos.length === 0 ? (
-            <div className="text-center py-8 text-gray-500 dark:text-gray-400 fadeIn">
-              <p className="text-lg">
-                {filter === 'active' 
-                  ? '¡Todas las tareas están completadas! 🎉' 
-                  : 'No hay tareas completadas aún'}
-              </p>
             </div>
           ) : (
             <ul className="space-y-2 mt-4">
-              {filteredTodos.map((todo) => (
+              {todos.map((todo) => (
                 <li
                   key={todo.id}
                   className={`flex justify-between items-center p-4 rounded-lg border ${
                     todo.completed
                       ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-900'
                       : 'bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600'
-                  } hover:shadow-md transition-all duration-200 slideIn`}
+                  } hover:shadow-md transition-all duration-200`}
                 >
                   <div className="flex items-center gap-3 flex-1">
                     <button
-                      onClick={() => handleToggleTodo(todo.id)}
+                      onClick={() => toggleTodo(todo.id)}
                       className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
                         todo.completed
                           ? 'bg-green-500 border-green-500 text-white'
@@ -199,15 +127,15 @@ export default function App() {
                       className={`flex-grow cursor-pointer ${
                         todo.completed ? 'line-through text-gray-500 dark:text-gray-400' : ''
                       }`}
-                      onClick={() => handleToggleTodo(todo.id)}
+                      onClick={() => toggleTodo(todo.id)}
                     >
                       {todo.text}
                     </span>
                   </div>
                   <button
-                    onClick={() => handleDeleteTask(todo.id)}
+                    onClick={() => deleteTodo(todo.id)}
                     className="ml-2 p-2 text-gray-400 hover:text-red-500 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
-                    aria-label="Eliminar tarea"
+                    aria-label="Delete todo"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -230,20 +158,11 @@ export default function App() {
           )}
           
           {todos.length > 0 && (
-            <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400 flex justify-between items-center">
+            <div className="mt-4 text-sm text-gray-500 dark:text-gray-400 flex justify-between items-center">
+              <span>{todos.length} {todos.length === 1 ? 'tarea' : 'tareas'} en total</span>
               <span>
-                {filteredTodos.length} {filteredTodos.length === 1 ? 'tarea' : 'tareas'} 
-                {filter !== 'all' ? (filter === 'active' ? ' activas' : ' completadas') : ''}
+                {todos.filter(t => t.completed).length} {todos.filter(t => t.completed).length === 1 ? 'completada' : 'completadas'}
               </span>
-              
-              {todos.some(todo => todo.completed) && (
-                <button
-                  onClick={clearCompleted}
-                  className="text-blue-500 hover:text-blue-700 hover:underline transition-colors"
-                >
-                  Limpiar completadas
-                </button>
-              )}
             </div>
           )}
         </div>
