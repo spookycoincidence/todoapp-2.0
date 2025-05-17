@@ -1,6 +1,6 @@
 ![ToDo](ToDoList.png)
 
-# 📝 ToDo App 2.0
+# 📝 To - Do - List App 2.0
 
 Una aplicación simple para gestionar tus tareas diarias. Construida con **Next.js**, **React** y **Tailwind CSS**, esta app te permite agregar, completar, eliminar y limpiar tareas completadas. Además, cuenta con una interfaz clara, filtros por estado y modo claro/oscuro.
 
